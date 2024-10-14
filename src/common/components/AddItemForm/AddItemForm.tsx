@@ -9,7 +9,7 @@ type AddItemFormPropsType = {
   disabled?: boolean
 }
 
-export const AddItemForm = React.memo(function ({ addItem, disabled = false }: AddItemFormPropsType) {
+export const AddItemForm = React.memo(function({ addItem, disabled = false }: AddItemFormPropsType) {
   let [title, setTitle] = useState("")
   let [error, setError] = useState<string | null>(null)
 
@@ -21,7 +21,9 @@ export const AddItemForm = React.memo(function ({ addItem, disabled = false }: A
           setTitle("")
         })
         .catch((err: BaseResponse) => {
-          setError(err.messages[0])
+          if (err.messages) {
+            setError(err.messages[0])
+          }
         })
     } else {
       setError("Title is required")
